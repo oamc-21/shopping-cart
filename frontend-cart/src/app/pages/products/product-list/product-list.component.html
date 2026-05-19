@@ -1,1 +1,44 @@
-<p>product-list works!</p>
+<div class="store-container">
+  <nav class="navbar">
+    <div class="nav-brand">Electronic Shop</div>
+    <div class="nav-actions">
+      <button routerLink="/cart" class="cart-badge btn-cart-nav" style="cursor: pointer; color: white;">
+      <img src="../../../../../public/carrito.svg" alt="Carrito" class="nav-cart-icon" />
+      <span>Carrito: <strong>{{ cartCount }}</strong></span>
+     </button>
+      <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <h2>Catálogo de Productos</h2>
+    <p class="subtitle">Explora nuestros artículos disponibles</p>
+
+    @if (errorMessage) {
+      <div class="alert-error">{{ errorMessage }}</div>
+    }
+
+    <div class="products-grid">
+      @for (product of products; track product.id) {
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+            <div class="product-footer">
+              <span class="product-price">${{ product.price }}</span>
+              <span class="product-stock">Stock: {{ product.stock }}</span>
+            </div>
+            
+            <button class="btn-add-cart" (click)="onAddToCart(product)">
+              Añadir al Carrito
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-store">
+          <p>No hay productos disponibles en este momento.</p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

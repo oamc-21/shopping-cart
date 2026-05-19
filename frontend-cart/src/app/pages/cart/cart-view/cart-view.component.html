@@ -1,1 +1,49 @@
-<p>cart-view works!</p>
+<div class="cart-container">
+  <header class="cart-header">
+    <button routerLink="/products" class="btn-back">Volver al Catalogo</button>
+    <h2>Tu Carrito de Compras</h2>
+  </header>
+
+  <main class="cart-content">
+    @if (cartItems.length > 0) {
+      <div class="cart-layout">
+        <div class="items-section">
+          @for (item of cartItems; track item.id) {
+            <div class="cart-item-card">
+              <div class="item-details">
+                <h3>{{ item.name }}</h3>
+                <p class="item-price">Precio unitario: ${{ item.price }}</p>
+              </div>
+              <div class="item-actions">
+                <span class="item-quantity">Cantidad: <strong>{{ item.quantity }}</strong></span>
+                <span class="item-subtotal">Subtotal: <strong>${{ item.price * item.quantity }}</strong></span>
+                <button (click)="onRemoveItem(item.id)" class="btn-delete">Eliminar</button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="summary-section">
+          <div class="summary-card">
+            <h3>Resumen del Pedido</h3>
+            <hr />
+            <div class="summary-row">
+              <span>Productos totales:</span>
+              <span>{{ cartItems.length }}</span>
+            </div>
+            <div class="summary-row total-row">
+              <span>Total a Pagar:</span>
+              <span class="total-amount">${{ totalPrice }}</span>
+            </div>
+            <button (click)="onCheckout()" class="btn-checkout">Proceder al Pago</button>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="empty-cart-state">
+        <p>Tu carrito está vacio</p>
+        <button routerLink="/products" class="btn-shop-now">Ir a la Tienda</button>
+      </div>
+    }
+  </main>
+</div>
