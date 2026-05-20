@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/registe`, userData)
+    return this.http.post<any>(`${this.apiUrl}/register`, userData)
   }
 
   isLoggedIn():boolean{

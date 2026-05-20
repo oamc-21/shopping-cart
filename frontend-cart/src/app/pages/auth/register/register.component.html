@@ -3,22 +3,29 @@
     <h2>Crear Cuenta</h2>
     <p class="subtitle">Regístrate para empezar a añadir productos a tu carrito</p>
 
-    <div *ngIf="errorMessage" class="alert-error">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="alert-success">{{ successMessage }}</div>
+    @if (errorMessage) {
+      <div class="alert-error animate-fade-in">{{ errorMessage }}</div>
+    }
+    @if (successMessage) {
+      <div class="alert-success animate-fade-in">{{ successMessage }}</div>
+    }
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
       <div class="form-group">
         <label for="name">Nombre Completo</label>
         <input 
           type="text" 
           id="name" 
-          formControlName="name" 
+          formControlName="fullName" 
           placeholder="Juan Pérez"
-          [class.input-error]="registerForm.get('name')?.touched && registerForm.get('name')?.invalid"
+          [class.input-error]="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid"
         />
-        <span *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error-text">
-          El nombre es obligatorio (mínimo 3 caracteres)
-        </span>
+        @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
+          <span class="error-text">
+            El nombre es obligatorio (mínimo 3 caracteres)
+          </span>
+        }
       </div>
 
       <div class="form-group">
@@ -30,12 +37,16 @@
           placeholder="ejemplo@correo.com"
           [class.input-error]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
         />
-        <span *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']" class="error-text">
-          El correo es obligatorio
-        </span>
-        <span *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']" class="error-text">
-          Formato de correo inválido
-        </span>
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']) {
+          <span class="error-text">
+            El correo es obligatorio
+          </span>
+        }
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']) {
+          <span class="error-text">
+            Formato de correo inválido
+          </span>
+        }
       </div>
 
       <div class="form-group">
@@ -47,13 +58,15 @@
           placeholder="******"
           [class.input-error]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
         />
-        <span *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error-text">
-          La contraseña debe tener mínimo 6 caracteres
-        </span>
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <span class="error-text">
+            La contraseña debe tener mínimo 6 caracteres
+          </span>
+        }
       </div>
 
       <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">
-        Registrarme
+        Registrarse
       </button>
     </form>
 

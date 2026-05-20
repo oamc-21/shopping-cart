@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../core/services/product.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -8,7 +8,7 @@ import { CartService } from '../../../core/services/cart.service';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -24,7 +24,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private readonly productService: ProductService,
     private readonly authService: AuthService,
     private readonly cartService: CartService, 
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       next: (items) => {
         
         this.cartCount = items.reduce((total, item) => total + item.quantity, 0);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -42,12 +44,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
+
+    } 
     }
-  }
 
   loadProducts(): void {
     this.productService.getProducts().subscribe({
-      next: (data) => { this.products = data; },
+      next: (data) => {
+        this.products = data;
+        console.log('productos', data)
+        this.cdr.detectChanges()},
       error: (err) => {
         console.error('Error cargando productos:', err);
         this.errorMessage = 'No se pudieron cargar los productos.';
@@ -55,6 +61,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
           this.authService.logout();
           this.router.navigate(['/login']);
         }
+        this.cdr.detectChanges();
       }
     });
   }

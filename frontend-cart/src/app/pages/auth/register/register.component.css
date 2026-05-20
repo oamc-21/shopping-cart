@@ -92,7 +92,7 @@ input:focus {
 .btn-submit {
   width: 100%;
   padding: 0.75rem;
-  background-color: #10b981; /* Un color verde para diferenciar el botón de registro */
+  background-color: #10b981; 
   color: white;
   border: none;
   border-radius: 6px;
@@ -126,4 +126,45 @@ input:focus {
 
 .footer-text a:hover {
   text-decoration: underline;
+}
+
+
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+
+.alert-success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+
+.alert-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

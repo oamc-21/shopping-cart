@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CartService, CartItem } from '../../../core/services/cart.service';
@@ -17,7 +17,8 @@ export class CartViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly cartService: CartService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +27,8 @@ export class CartViewComponent implements OnInit, OnDestroy {
       next: (items) => {
         this.cartItems = items;
         this.calculateTotal();
+        console.log('Articulos actuales:', items);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -42,6 +45,7 @@ export class CartViewComponent implements OnInit, OnDestroy {
 
   onRemoveItem(productId: number): void {
     this.cartService.removeFromCart(productId);
+    this.cdr.detectChanges();
   }
 
   onCheckout(): void {

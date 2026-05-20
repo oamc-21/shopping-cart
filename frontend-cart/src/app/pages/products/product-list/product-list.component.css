@@ -4,7 +4,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Navbar */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,7 @@
   background-color: #dc2626;
 }
 
-/* Contenido */
+
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -53,7 +53,6 @@ h2 {
   margin-bottom: 2rem;
 }
 
-/* Grid de Tarjetas */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -169,10 +168,16 @@ h2 {
   gap: 0.5rem; 
 }
 
-.nav-cart-icon {
-  width: 20px;  
-  height: 20px;
-  display: block;
-
-  filter: brightness(0) invert(1); 
+.cart-badge.btn-cart-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem; 
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 20px;
+  height: auto; 
+  line-height: 1; 
 }
+

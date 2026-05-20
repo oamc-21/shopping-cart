@@ -37,12 +37,13 @@ export class LoginComponent {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/products']);
-      },
+        setTimeout(()=>{
+          this.router.navigate(['/products']);
+        }, 50);
+        },
       error: (err) => {
-        console.log('Server error', err);
-
-       
+        console.log('Error en el servidor', err);
+    
         if (err.error && err.error.message) {
           this.errorMessage = err.error.message;
         } else {
